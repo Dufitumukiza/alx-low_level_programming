@@ -1,4 +1,4 @@
-#inclusz "main.h"
+#include "main.h"
 #include <unistd.h>
 
 /**
