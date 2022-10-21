@@ -4,6 +4,7 @@
  * more_numbers - prints 0 to 14 ten times
  * Return: no return
  */
+
 void more_numbers(void)
 {
 	int num, a;
