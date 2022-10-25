@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 /**
- * main - Prints the alphabetic in lower and upper case
- *
- * Return: Always (Success)
+ * _islower - Prints the alphabetic in lower and upper case
+ * @c: The character to be checked
+ * Return: 1 for lowercase character or 0 for anything else
  */
 
 int _islower(int c)
