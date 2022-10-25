@@ -6,21 +6,11 @@
  * Return: Always (Success)
  */
 
-int main(void)
+int _islower(int c)
 {
-	char c;
-
-	for (c = 'a'; c <= 'z'; c++)
+	if (c >= 97 && c <= 122)
 	{
-		putchar(c);
+		return (1);
 	}
-
-	for (c = 'A'; c <= 'Z'; c++)
-	{
-		putchar(c);
-	}
-
-	putchar('\n');
-
 	return (0);
 }
