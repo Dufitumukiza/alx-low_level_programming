@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- * print_number - Prints an integer.
- * @n: The integer to be printed.
+ * print_number - Function that prints an integer.
+ * @n: int type number
  * Description: Can only use _putchar to print.
  */
 
