@@ -1,81 +1,61 @@
-#include "sort.h"
+#include "main.h"
+#include <stdio.h>
 
 /**
- * sift_down - fixes a heap
- * @array: the heap to fix
- * @root: the root of the heap
- * @end: the last index of the heap
- * @size: size of the array
- *
- * Return: void
+ * print_line - prints a s bytes of a buffer
+ * @c: buffer to print
+ * @s: bytes of buffer to print
+ * @l: line of buffer to print
+ *  Return: void
  */
 
-void sift_down(int *array, size_t root, size_t end, size_t size)
+void print_line(char *c, int s, int l)
 {
-	size_t left_child, right_child, swap;
-	int temp;
+	int j, k;
 
-	while ((left_child = (2 * root) + 1) <= end)
-	{
-		swap = root;
-		right_child = left_child + 1;
-		if (array[swap] < array[left_child])
-			swap = left_child;
-		if (right_child <= end && array[swap] < array[right_child])
-			swap = right_child;
-		if (swap == root)
-			return;
-		temp = array[root];
-		array[root] = array[swap];
-		array[swap] = temp;
-		print_array(array, size);
-		root = swap;
-	}
+		for (j = 0; j <= 9; j++)
+		{
+			if (j <= s)
+				printf("%02x", c[l * 10 + j]);
+			else
+				printf("  ");
+			if (j % 2)
+				putchar(' ');
+		}
+		for (k = 0; k <= s; k++)
+		{
+			if (c[l * 10 + k] > 31 && c[l * 10 + k] < 127)
+				putchar(c[l * 10 + k]);
+			else
+				putchar('.');
+		}
 }
 
 /**
- * make_heap - makes a heap from an unsorted array
- * @array: array to turn into a heap
- *
- * @size: size of the array
- *
- * Return: void
- */
-void make_heap(int *array, size_t size)
-{
-	size_t parent;
-
-	for (parent = ((size - 1) - 1) / 2; 1; parent--)
-	{
-		sift_down(array, parent, size - 1, size);
-		if (parent == 0)
-			break;
-	}
-}
-
-/**
- * heap_sort - sorts an array of ints in ascending order w/ the Heap sort algo
- * @array: array to sort
- * @size: size of the array
+ * print_buffer - prints a buffer
+ * @b: buffer to print
+ * @size: size of buffer
  *
  * Return: void
  */
-void heap_sort(int *array, size_t size)
-{
-	size_t end;
-	int temp;
 
-	if (array == NULL || size < 2)
-		return;
-	make_heap(array, size);
-	end = size - 1;
-	while (end > 0)
+void print_buffer(char *b, int size)
+{
+	int i;
+
+	for (i = 0; i <= (size - 1) / 10 && size; i++)
 	{
-		temp = array[end];
-		array[end] = array[0];
-		array[0] = temp;
-		print_array(array, size);
-		end--;
-		sift_down(array, 0, end, size);
+		printf("%08x: ", i * 10);
+		if (i < size / 10)
+		{
+			print_line(b, 9, i);
+		}
+		else
+		{
+			print_line(b, size % 10 - 1, i);
+		}
+		putchar('\n');
 	}
+	if (size == 0)
+		putchar('\n');
 }
