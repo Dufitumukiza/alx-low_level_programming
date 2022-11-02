@@ -1,22 +1,26 @@
 #include "main.h"
 
 /**
- * _pow_recursion - power
- * @x:int
- * @y:int
+ * factorial - factorial of int
+ * @n:int
  * Return:int
  */
 
-int _pow_recursion(int x, int y)
+int factorial(int n)
 {
-	int result = x;
+	int x;
 
-	if (y < 0)
-		return (-1);
-	else if (y == 0)
+	if (n == 0)
+	{
 		return (1);
-
-	result *= _pow_recursion(x, y - 1);
-
-	return (result);
+	}
+	else if (n < 0)
+	{
+		return (-1);
+	}
+	else
+	{
+		x = n * factorial(n - 1);
+	}
+	return (x);
 }
