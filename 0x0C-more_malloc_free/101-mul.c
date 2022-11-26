@@ -1,74 +1,92 @@
+#include "main.h"
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 
 /**
- * _isdigit - tells if the string consists of digits
- * @argv: pointer to current item in argument
- * Return: return 0 if all digits, 1 if not all digits.
+ * _isnumber - checks if string is number
+ * @s: string
+ * Return: 1 if number, 0 if not
  */
 
-int _isdigit(char *argv)
+int _isnumber(char *s)
 {
-	int i;
+	int i, check, d;
 
-	i = 0;
-	while (argv[i])
+	d = 0, check = 1;
+	for (i = 0; *(s + i) != 0; i++)
 	{
-		if (argv[i] >= '0' && argv[i] <= '9')
-			i++;
-		else
-			return (1);
+		d = isdigit(*(s + i));
+		if (d == 0)
+		{
+
+			check = 0;
+			break;
+		}
 	}
-	return (0);
+	return (check);
 }
 
 /**
- * _atoi - converts a string of ascii digits to the values they represent
- * @s: pointer to the source string
- * Return: value of digits
+ * _callocX - reserves memory initialized to 0
+ * @nmemb: # of bytes
+ * Return: pointer
  */
-
-int _atoi(char *s)
+char *_callocX(unsigned int nmemb)
 {
-	int i, result;
+	unsigned int i;
+	char *p;
 
-	i = result = 0;
-	while (s[i])
-	{
-		if (s[i] >= '0' && s[i] <= '9')
-		{
-			result *= 10;
-			result += (s[i] - '0');
-		}
-		i++;
-	}
-	return (result);
+	p = malloc(nmemb + 1);
+	if (p == 0)
+		return (0);
+	for (i = 0; i < nmemb; i++)
+		p[i] = '0';
+	p[i] = '\0';
+	return (p);
 }
 
 /**
- * main - main function call
- * @argc: argument count
- * @argv: 2D array of arguments
- * Return: return 0 on success, 98 on failure
+ * main - program that multiplies two positive numbers.
+ * @argc: count
+ * @argv: vector
+ * Return: output
  */
-
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
-	int i;
+	int i, j, l1, l2, lful, mul, add, ten, ten2, tl, zer = 0;
+	char *res;
 
-	malloc();
-	if (argc != 3)
+	if (argc != 3 || _isnumber(argv[1]) == 0 || _isnumber(argv[2]) == 0)
+		printf("Error\n"), exit(98);
+	if (atoi(argv[1]) == 0 || atoi(argv[2]) == 0)
+		printf("0\n"), exit(0);
+	l1 = strlen(argv[1]), l2 = strlen(argv[2]);
+	lful = l1 + l2;
+	res = _callocX(lful);
+	if (res == 0)
+		printf("Error\n"), exit(98);
+	for (i = l2 - 1; i >= 0; i--)
 	{
-		printf("Error\n");
-		exit(98);
-	}
-	for (i = 1; i < argc; i++)
-	{
-		if (_isdigit(argv[i]))
+		ten = 0, ten2 = 0;
+		for (j = l1 - 1; j >= 0; j--)
 		{
-			printf("Error\n");
-			exit(98);
+			tl = i + j + 1;
+			mul = (argv[1][j] - '0') * (argv[2][i] - '0') + ten;
+
+			ten =  mul / 10;
+			add = (res[tl] - '0') + (mul % 10) + ten2;
+			ten2 = add / 10;
+			res[tl] = (add % 10) + '0';
 		}
+		res[tl - 1] = (ten + ten2) + '0';
 	}
+	if (res[0] == '0')
+		zer = 1;
+	for (; zer < lful; zer++)
+		printf("%c", res[zer]);
+	printf("\n");
+	free(res);
 	return (0);
 }
