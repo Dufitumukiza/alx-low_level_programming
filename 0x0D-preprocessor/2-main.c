@@ -2,7 +2,7 @@
 
 /**
  * main - prints the name of the file program that was compiled
- * Returns: Always 0
+ * Return: Always 0 (Success)
  */
 
 int main(void)
