@@ -1,7 +1,7 @@
 #include "function_pointers.h"
 #include <stdio.h>
 /**
- * print_name - a function that prints a name.i
+ * print_name - a function that prints a name.
  * @name: the name given
  * @f: function of name
  *
